@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Month 3 EPA-Style Scenario Quiz: Process Mapping and Workflow Improvement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#152a37; --teal:#074a5d; --mid:#1f8a9e; --lime:#e1fb5d; --off:#efeeea; --white:#fff;
+    --line:#d3d9d6; --muted:#5d6b72; --good:#2f8a4e; --goodbg:#e6f4ea; --bad:#b9342d; --badbg:#fbeaea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Poppins,Arial,sans-serif;font-weight:300;color:var(--navy);background:var(--off);line-height:1.5}
+  header{background:linear-gradient(180deg,var(--teal),var(--navy));color:var(--off);padding:28px 20px 0}
+  .wrap{max-width:880px;margin:0 auto}
+  .brand{font-weight:400;font-size:15px;letter-spacing:.5px;opacity:.9}
+  .brand b{color:var(--lime);font-weight:600}
+  h1{font-weight:400;font-size:clamp(24px,4vw,34px);margin:10px 0 6px;line-height:1.2}
+  .lead{margin:0 0 18px;max-width:700px;font-size:15px}
+  .ksbs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 11px;font-size:12px;font-weight:500}
+  header .chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25)}
+  header .chip b{color:var(--lime)}
+  nav{display:flex;gap:4px}
+  nav button{font:inherit;font-weight:500;font-size:14px;border:0;background:transparent;color:var(--off);padding:12px 18px;border-radius:10px 10px 0 0;cursor:pointer;opacity:.8}
+  nav button[aria-selected="true"]{background:var(--off);color:var(--navy);opacity:1}
+  main{padding:24px 20px 60px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:18px}
+  .muted{color:var(--muted)}
+  .small{font-size:13px}
+  .progress{height:8px;background:#dfe4e2;border-radius:99px;overflow:hidden;margin:6px 0 18px}
+  .progress span{display:block;height:100%;background:var(--mid);width:0;transition:width .3s}
+  .qmeta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px}
+  .tag{background:var(--navy);color:var(--lime);border-radius:999px;padding:2px 10px;font-weight:600;font-size:12px}
+  .scenario{background:var(--off);border-radius:10px;padding:14px 16px;margin:14px 0 10px;font-size:15px}
+  .scenario b{font-weight:600;color:var(--teal)}
+  .question{font-weight:500;font-size:17px;margin:12px 0 14px}
+  .opts{display:grid;gap:10px}
+  .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;font:inherit;font-size:15px;font-weight:300;color:var(--navy);background:var(--white);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover:not(:disabled){border-color:var(--mid)}
+  .opt .k{flex:0 0 26px;height:26px;border-radius:50%;background:var(--off);display:grid;place-items:center;font-weight:600;font-size:13px}
+  .opt.sel{border-color:var(--teal);background:#eef6f7}
+  .opt.sel .k{background:var(--teal);color:var(--lime)}
+  .opt.right{border-color:var(--good);background:var(--goodbg)}
+  .opt.right .k{background:var(--good);color:#fff}
+  .opt.wrong{border-color:var(--bad);background:var(--badbg)}
+  .opt.wrong .k{background:var(--bad);color:#fff}
+  .opt:disabled{cursor:default}
+  .feedback{margin-top:16px;border-radius:10px;padding:14px 16px;font-size:14.5px;display:none}
+  .feedback.show{display:block}
+  .feedback.ok{background:var(--goodbg);border:1px solid #b9dcc4}
+  .feedback.no{background:var(--badbg);border:1px solid #efc3c0}
+  .feedback strong{font-weight:600}
+  .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+  .btn{font:inherit;font-weight:500;font-size:14px;border-radius:999px;padding:10px 20px;cursor:pointer;border:1.5px solid var(--navy);background:var(--navy);color:var(--off)}
+  .btn:disabled{opacity:.4;cursor:default}
+  .btn.ghost{background:transparent;color:var(--navy)}
+  .btn.lime{background:var(--lime);border-color:var(--lime);color:var(--navy)}
+  .score{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .big{font-size:52px;font-weight:500;line-height:1}
+  .bars{display:grid;gap:12px;margin:18px 0}
+  .bar{display:grid;grid-template-columns:60px 1fr 64px;gap:12px;align-items:center;font-size:14px}
+  .bar .t{height:12px;background:#dfe4e2;border-radius:99px;overflow:hidden}
+  .bar .t span{display:block;height:100%;background:var(--teal)}
+  .bar b{font-weight:600}
+  .review{margin-top:10px}
+  .review details{border-top:1px solid var(--line);padding:10px 0}
+  .review summary{cursor:pointer;font-size:14px}
+  .review summary .x{font-weight:600}
+  .pd-intro{display:grid;gap:6px}
+  .pd{position:relative}
+  .pd h3{font-size:17px;font-weight:500;margin:10px 0 12px}
+  textarea{width:100%;min-height:120px;font:inherit;font-size:14.5px;border:1.5px dashed var(--line);border-radius:10px;padding:12px;resize:vertical;color:var(--navy)}
+  textarea:focus{outline:none;border-color:var(--mid);border-style:solid}
+  .timer{font-variant-numeric:tabular-nums;font-weight:500;font-size:13px;color:var(--muted)}
+  .reveal{display:none;margin-top:14px;background:var(--off);border-radius:10px;padding:14px 16px}
+  .reveal.show{display:block}
+  .reveal h4{margin:0 0 8px;font-size:14px;font-weight:600;color:var(--teal)}
+  .reveal label{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;padding:4px 0;cursor:pointer}
+  .reveal input{margin-top:5px;accent-color:var(--teal)}
+  .tip{font-size:13.5px;margin-top:8px;border-top:1px solid var(--line);padding-top:8px}
+  .selfscore{font-size:13px;font-weight:500;margin-left:auto}
+  .note{font-size:12.5px;color:var(--muted);margin-top:24px}
+  .hidden{display:none}
+  @media (max-width:560px){.card{padding:18px}.bar{grid-template-columns:44px 1fr 52px}}
+</style>
+<style>
+  .send{margin-top:18px;border-top:1px solid var(--line);padding-top:16px;display:grid;gap:10px}
+  .send label{font-size:14px;font-weight:500}
+  .send input{font:inherit;font-size:15px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;max-width:420px;color:var(--navy)}
+  .send input:focus{outline:none;border-color:var(--mid)}
+  a.btn{text-decoration:none;display:inline-block}
+  a.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand"><a href="index.html" style="color:inherit;text-decoration:none">&larr; All Month 3 practice</a> · we are <b>zenith*</b> · Level 4 AI and Automation Practitioner (ST1512)</div>
+    <h1>Month 3 EPA-style scenario quiz: process mapping and workflow improvement</h1>
+    <p class="lead">20 workplace scenarios. Choose the best answer, check it, and read why. Your score is broken down by KSB at the end.</p>
+    <div class="ksbs">
+      <span class="chip"><b>K5</b> Methods to identify improvement opportunities</span>
+      <span class="chip"><b>S6</b> Workflow and process mapping</span>
+      <span class="chip"><b>S21</b> Analysing information to support recommendations</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div id="quiz-card" class="card">
+      <div class="qmeta"><span id="qnum" class="muted"></span><span id="qtag" class="tag"></span></div>
+      <div class="progress"><span id="prog"></span></div>
+      <div id="qscen" class="scenario"></div>
+      <div id="qtext" class="question"></div>
+      <div id="qopts" class="opts" role="radiogroup"></div>
+      <div id="qfb" class="feedback" aria-live="polite"></div>
+      <div class="actions">
+        <button id="btn-check" class="btn" disabled>Check answer</button>
+        <button id="btn-next" class="btn lime hidden">Next question</button>
+      </div>
+    </div>
+    <div id="results" class="card hidden">
+      <div class="muted small">Your result</div>
+      <div class="score"><span id="rscore" class="big"></span><span id="rmsg"></span></div>
+      <div class="bars" id="rbars"></div>
+      <p class="small muted">Look at the KSB with the lowest score and revisit that part of the session deck and the how-to guide. Then practise explaining your own work in the professional discussion practice.</p>
+      <div class="review" id="rreview"></div>
+      <div class="send">
+        <strong style="font-weight:600">Send your results to your trainer</strong>
+        <label for="lname">Your name</label>
+        <input id="lname" autocomplete="name" placeholder="First and last name">
+        <div class="actions" style="justify-content:flex-start;margin-top:4px">
+          <a id="btn-email" class="btn lime" href="#" aria-disabled="true">Email my results to Dave</a>
+          <button id="btn-copyres" class="btn ghost">Copy my results</button>
+        </div>
+        <div id="send-msg" class="small muted" aria-live="polite">Enter your name first. The button opens your email app with your results filled in; press Send to finish. If nothing opens, copy your results and email them to <b style="font-weight:600">dave@we-are-zenith.com</b>.</div>
+      </div>
+      <div class="actions">
+        <button id="btn-retry" class="btn ghost">Try again (new order)</button>
+      </div>
+    </div>
+    <p class="note">This is a practice resource, not an official end-point assessment. Questions are written to the Month 3 KSBs (K5, S6, S21); always check your EPA organisation's guidance for the real format and grading criteria.</p>
+  </div>
+</main>
+
+<script>
+// a = index of the correct option as written; options are shuffled on screen
+const QUESTIONS = [
+  {ksb:["S6"], scen:"Your line manager asks you to <b>map onboarding</b> so the team can see where AI might help.",
+   q:"What is the best first step?",
+   o:["Agree a clear boundary, for example from offer accepted to IT equipment issued on day one",
+      "Map the full employee lifecycle from vacancy to leaving, so nothing is missed",
+      "Choose an automation tool first, then map the steps it will cover",
+      "Send a survey to every employee about their onboarding experience"],
+   a:0, why:"A process that is too broad cannot be mapped or evidenced well. Defining the start, end, trigger and output first keeps the map focused and is part of S6."},
+  {ksb:["S6"], scen:"The HR manager tells you: \"There's no need to watch anyone, the process is written in the policy document.\"",
+   q:"What should your as-is map show?",
+   o:["What actually happens now, checked by observing the work or talking to the people who do it",
+      "The steps exactly as written in the policy document",
+      "The ideal process you would like the team to follow",
+      "Only the steps that involve a computer system"],
+   a:0, why:"An as-is map shows the real process, including workarounds, chasing and side spreadsheets. The difference between policy and reality is often where the improvement is."},
+  {ksb:["K5"], scen:"New starter details arrive on a form. An HR administrator types them into the HR system, then types them again into a tracking spreadsheet.",
+   q:"Which inefficiency does this show most clearly?",
+   o:["Duplication and repeated data entry","Unclear ownership","An unnecessary approval","A communication gap with the new starter"],
+   a:0, why:"The same information is entered twice. Repeated data entry wastes time and creates a risk of errors between the two records."},
+  {ksb:["K5"], scen:"Equipment requests wait in a manager's inbox for an average of four working days for sign-off. Nobody reminds them.",
+   q:"What is the most sensible initial judgement?",
+   o:["It is a delay at an approval step: check whether the approval is needed, then consider automated reminders or routing",
+      "Replace the manager's approval with an AI chatbot",
+      "There is no problem because the requests are eventually approved",
+      "Ask HR to phone the manager every morning"],
+   a:0, why:"This is a bottleneck. Good practice asks whether the step adds value before speeding it up. If it does, a rule-based reminder (automation) fits better than generative AI."},
+  {ksb:["S21"], scen:"You need to show that the approval stage is slow.",
+   q:"Which is the strongest evidence?",
+   o:["\"I timed 15 requests over three weeks: on average 6.5 working days from request to approval, and 4 were sent back for missing information.\"",
+      "\"Everyone says it takes too long.\"",
+      "\"A software supplier says their tool can cut approval time by 80%.\"",
+      "\"My manager thinks it is the biggest problem we have.\""],
+   a:0, why:"Specific, measured evidence from the process itself is far more convincing than opinion or a supplier's claim. It also gives you a baseline to measure improvement against."},
+  {ksb:["S21"], scen:"You could only collect timings for 5 cases, all from one week.",
+   q:"How should you handle this in your report?",
+   o:["Use the figures, state the limitations (small sample, one week, may not be typical) and say how you would extend the evidence",
+      "Leave the timings out because the sample is too small",
+      "Present the figures as proof that the problem happens all the time",
+      "Add some estimated cases to make the sample bigger"],
+   a:0, why:"Limited evidence is acceptable if you are honest about it. Explaining reliability and limitations is part of analysing information well (S21). Never invent data."},
+  {ksb:["K5","S6"], scen:"Your map shows that nobody is sure who signs off new starter equipment, so requests bounce between IT, HR and the line manager.",
+   q:"What type of improvement does this suggest first?",
+   o:["Process redesign: agree a single owner and a clear route before any technology is considered",
+      "Generative AI to decide who should approve each request",
+      "An automated workflow that sends the request to all three teams",
+      "No change, because the requests are eventually approved"],
+   a:0, why:"The root cause is unclear ownership. Automating a confused process just moves the confusion faster. Redesign first, then review whether automation would help."},
+  {ksb:["K5"], scen:"Each term, a training team receives around 300 written comments from learner feedback forms. Reading them takes a coordinator two days.",
+   q:"Which option is the best fit to explore?",
+   o:["AI-supported summarising and theme identification, with a person checking the themes",
+      "An automated reminder for learners to complete the form",
+      "Removing the comments box from the feedback form",
+      "A rule-based workflow that forwards every comment to every tutor"],
+   a:0, why:"Large volumes of free text suit AI tasks such as summarising and classifying. A human check keeps it accurate and responsible."},
+  {ksb:["S6"], scen:"You are reviewing your draft as-is map before adding it to your report.",
+   q:"Which of these does the map NOT need to show?",
+   o:["The price of the AI tool you plan to buy","Decision points and approvals","Handoffs between people, teams or systems","Waiting points, loops and repeated steps"],
+   a:0, why:"The as-is map shows the current process. Choosing or costing a solution is not part of Month 3; feasibility comes later in the programme."},
+  {ksb:["S21"], scen:"A screenshot of your tracker would show the problem clearly, but it includes learners' names and email addresses.",
+   q:"What should you do?",
+   o:["Anonymise it (crop, blur or replace names with roles) before including it",
+      "Include it, because the assessor needs to see real data",
+      "Describe the tracker in words and never use screenshots",
+      "Ask the learners to give consent by email afterwards"],
+   a:0, why:"Workplace evidence must not contain confidential, personal or sensitive information. Anonymising keeps the evidence useful and compliant."},
+  {ksb:["K5"], scen:"Every Friday a recruiter copies candidate details from the applicant tracking system into a hiring manager spreadsheet.",
+   q:"Which improvement is most appropriate to explore?",
+   o:["Automation or an integration that moves the data between systems on a schedule",
+      "A generative AI chatbot for hiring managers",
+      "Asking the hiring managers to stop using spreadsheets immediately",
+      "AI-generated summaries of each candidate"],
+   a:0, why:"Moving the same structured data between systems on a fixed schedule is rule-based work. Automation is usually more suitable than generative AI here."},
+  {ksb:["K5","S6","S21"], scen:"In questioning, the assessor asks: \"This is an AI apprenticeship. Why didn't you recommend AI?\"",
+   q:"Which response shows the strongest professional judgement?",
+   o:["\"My map and evidence showed the main cause was unclear ownership, so redesign comes first. Once the process is stable, I'd review whether automation or AI adds value.\"",
+      "\"I didn't have time to research AI tools.\"",
+      "\"AI is too risky for any workplace process.\"",
+      "\"My manager told me not to use AI.\""],
+   a:0, why:"The answer links the decision to the map and the evidence, and explains what would happen next. Not forcing AI into a process is a sign of good judgement."},
+  {ksb:["S6"], scen:"Your process passes between a hiring manager, the HR team and an external recruitment agency.",
+   q:"Why would a swimlane map suit this process well?",
+   o:["It shows who does each step and makes every handoff between people or organisations visible",
+      "It is the only format an assessor will accept",
+      "It removes the need to show decision points",
+      "It automatically calculates how long each step takes"],
+   a:0, why:"Swimlanes put each role in its own lane, so handoffs, and the waits that often happen at them, stand out. Any clear format is acceptable, but swimlanes suit processes with several parties."},
+  {ksb:["S6"], scen:"One step on your draft map just says <b>\"HR processes the request\"</b>.",
+   q:"What is the main weakness of this step?",
+   o:["It is too vague: it may hide several actions, checks and systems, so problems inside it cannot be seen",
+      "It should be written in capital letters",
+      "HR should never appear on a process map",
+      "It should be removed because it is obvious"],
+   a:0, why:"A good map breaks vague steps into the real actions (check form, enter data, email manager), each with who does it and where it is recorded. That is where duplication and waits are found."},
+  {ksb:["S21"], scen:"Your only feedback comes from three colleagues, all of whom have complained about the process before.",
+   q:"How should you treat this evidence?",
+   o:["Use it, but recognise it may be biased and balance it with data or views from other users of the process",
+      "Treat it as proof that everyone dislikes the process",
+      "Discard it because feedback is never valid evidence",
+      "Ask the same three colleagues again to confirm their views"],
+   a:0, why:"Feedback is useful evidence, but a small, self-selected group may not be representative. Saying so, and adding other evidence, shows strong analysis (S21)."},
+  {ksb:["K5"], scen:"Team leads send weekly updates by email in different formats. A manager spends around three hours each week combining them into one report.",
+   q:"Which approach is most sensible to explore?",
+   o:["Agree a standard update template first, then consider automation to collect updates and AI to summarise them",
+      "Buy an AI tool to read the emails exactly as they are now",
+      "Ask the manager to work faster",
+      "Stop producing the weekly report"],
+   a:0, why:"Inconsistent inputs are a process problem. Standardising first makes any later automation or AI far more reliable. This is an example of redesign, then both."},
+  {ksb:["S6"], scen:"You have finished your first draft of the as-is map from memory.",
+   q:"What is the main reason to check it with someone who does the process?",
+   o:["To confirm it reflects what really happens and to find steps, workarounds or waits you missed",
+      "To get them to approve your AI solution",
+      "Because the assessor needs their signature on the map",
+      "To share the blame if the map is wrong"],
+   a:0, why:"Validating the map makes it more accurate and reliable. What colleagues correct is also useful evidence and good material for your reflection."},
+  {ksb:["S21"], scen:"Your tracker data shows that 40% of requests are sent back to the requester because information is missing.",
+   q:"What does this most usefully suggest?",
+   o:["A rework loop caused at the input stage: investigate the form and guidance before looking at later steps",
+      "The approver is too strict and should approve everything",
+      "The tracker data must be wrong",
+      "The process needs an AI tool to approve requests"],
+   a:0, why:"High rework at one point usually traces back to the input. Analysing the data this way points the improvement at the cause (form design or guidance), not the symptom."},
+  {ksb:["K5"], scen:"Managers ask HR the same questions every week. The answers already exist in a policy document, but it is long and hard to search.",
+   q:"What is the best first improvement to consider?",
+   o:["Clarify and restructure the guidance so it is easy to find, then consider an AI-supported FAQ with a route to a person",
+      "Launch an AI chatbot trained on the current document straight away",
+      "Tell managers to read the full policy before asking anything",
+      "Stop answering manager questions"],
+   a:0, why:"If the guidance is unclear, AI may repeat the confusion. Improving the source first, then adding AI support with human escalation, is the stronger and more responsible option."},
+  {ksb:["K5"], scen:"Learners often miss sessions. Tutors send reminder texts by hand the day before.",
+   q:"Which improvement best fits this problem?",
+   o:["Automated reminders triggered by the session date, with the learner's preferred channel",
+      "A generative AI tool to write each reminder from scratch",
+      "Removing reminders so learners take more responsibility",
+      "Asking learners to remind each other"],
+   a:0, why:"A clear trigger (the session date) and a fixed action (send a reminder) is classic rule-based automation. Check consent and what happens if a session moves."}
+];
+
+const $ = id => document.getElementById(id);
+const L = ["A","B","C","D"];
+let order = [], idx = 0, picked = null, answers = [], view = [];
+const shuffle = arr => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+function start(){
+  order = shuffle(QUESTIONS.map((_,i)=>i)); idx = 0; answers = [];
+  $("results").classList.add("hidden"); $("quiz-card").classList.remove("hidden"); render();
+}
+function render(){
+  const q = QUESTIONS[order[idx]]; picked = null;
+  view = shuffle(q.o.map((_,i)=>i)); // view[pos] = original option index
+  $("qnum").textContent = `Question ${idx+1} of ${order.length}`;
+  $("qtag").textContent = q.ksb.join(" · ");
+  $("prog").style.width = `${idx/order.length*100}%`;
+  $("qscen").innerHTML = q.scen;
+  $("qtext").textContent = q.q;
+  const box = $("qopts"); box.innerHTML = "";
+  view.forEach((oi,pos)=>{
+    const b = document.createElement("button");
+    b.className = "opt"; b.setAttribute("role","radio"); b.setAttribute("aria-checked","false");
+    b.innerHTML = `<span class="k">${L[pos]}</span><span></span>`; b.lastChild.textContent = q.o[oi];
+    b.onclick = () => { picked = pos; [...box.children].forEach((c,j)=>{c.classList.toggle("sel", j===pos); c.setAttribute("aria-checked", j===pos);}); $("btn-check").disabled = false; };
+    box.appendChild(b);
+  });
+  $("qfb").className = "feedback"; $("qfb").innerHTML = "";
+  $("btn-check").disabled = true; $("btn-check").classList.remove("hidden"); $("btn-next").classList.add("hidden");
+}
+function check(){
+  if (picked === null) return;
+  const q = QUESTIONS[order[idx]], rightPos = view.indexOf(q.a), ok = picked === rightPos;
+  answers.push({qi:order[idx], ok, rightLetter:L[rightPos]});
+  [...$("qopts").children].forEach((c,j)=>{ c.disabled = true; c.classList.remove("sel"); if (j===rightPos) c.classList.add("right"); else if (j===picked) c.classList.add("wrong"); });
+  const fb = $("qfb");
+  fb.className = "feedback show " + (ok ? "ok" : "no");
+  fb.innerHTML = `<strong>${ok ? "Correct." : "Not quite. The best answer is " + L[rightPos] + "."}</strong> <span></span>`;
+  fb.lastChild.textContent = q.why;
+  $("btn-check").classList.add("hidden"); $("btn-next").classList.remove("hidden");
+  $("btn-next").textContent = idx === order.length-1 ? "See my results" : "Next question";
+  $("prog").style.width = `${(idx+1)/order.length*100}%`;
+  $("btn-next").focus();
+}
+function next(){ if (idx < order.length-1){ idx++; render(); window.scrollTo({top:0, behavior:"smooth"}); } else results(); }
+function results(){
+  $("quiz-card").classList.add("hidden"); $("results").classList.remove("hidden");
+  const n = answers.filter(a=>a.ok).length, pct = Math.round(n/answers.length*100);
+  $("rscore").textContent = `${n}/${answers.length}`;
+  $("rmsg").textContent = pct >= 85 ? "Strong. You are applying the ideas with confidence." : pct >= 65 ? "Good. Review the questions you missed below." : "Keep going. Revisit the session deck, then try again.";
+  const k = {K5:[0,0],S6:[0,0],S21:[0,0]};
+  answers.forEach(a=>QUESTIONS[a.qi].ksb.forEach(s=>{k[s][1]++; if(a.ok) k[s][0]++;}));
+  $("rbars").innerHTML = Object.entries(k).map(([s,[c,t]])=>`<div class="bar"><b>${s}</b><div class="t"><span style="width:${t?c/t*100:0}%"></span></div><span>${c} of ${t}</span></div>`).join("");
+  $("rreview").innerHTML = "";
+  answers.forEach((a,i)=>{
+    const q = QUESTIONS[a.qi], d = document.createElement("details");
+    d.innerHTML = `<summary><span class="x" style="color:${a.ok?'var(--good)':'var(--bad)'}">${a.ok?"✓":"✗"}</span> Q${i+1} · ${q.ksb.join(" · ")} · <span></span></summary><div class="small" style="padding:8px 0 0 18px"></div>`;
+    d.querySelector("summary span:last-child").textContent = q.q;
+    d.querySelector("div").textContent = `Best answer: ${q.o[q.a]}. ${q.why}`;
+    $("rreview").appendChild(d);
+  });
+  updateEmail();
+  $("results").scrollIntoView({behavior:"smooth", block:"start"});
+}
+const TRAINER = "dave@we-are-zenith.com";
+function resultsText(){
+  const name = $("lname").value.trim() || "(name not given)";
+  const n = answers.filter(a=>a.ok).length;
+  const k = {K5:[0,0],S6:[0,0],S21:[0,0]};
+  answers.forEach(a=>QUESTIONS[a.qi].ksb.forEach(s=>{k[s][1]++; if(a.ok) k[s][0]++;}));
+  const missed = answers.filter(a=>!a.ok).map(a=>`- [${QUESTIONS[a.qi].ksb.join(", ")}] ${QUESTIONS[a.qi].q}`);
+  return [
+    `Learner: ${name}`,
+    `Date: ${new Date().toLocaleDateString("en-GB")}`,
+    `Quiz: Month 3 EPA-style scenario quiz (process mapping)`,
+    `Score: ${n} of ${answers.length}`,
+    `By KSB: ${Object.entries(k).map(([s,[c,t]])=>`${s} ${c}/${t}`).join(", ")}`,
+    "",
+    missed.length ? "Questions missed:" : "No questions missed.",
+    ...missed
+  ].join("\n");
+}
+function updateEmail(){
+  const has = $("lname").value.trim().length > 0, a = $("btn-email");
+  a.setAttribute("aria-disabled", has ? "false" : "true");
+  const subj = `Month 3 quiz results: ${$("lname").value.trim()}`;
+  a.href = has ? `mailto:${TRAINER}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(resultsText())}` : "#";
+}
+$("lname").addEventListener("input", updateEmail);
+$("btn-email").addEventListener("click", async () => { try { await navigator.clipboard.writeText(resultsText()); } catch {} $("send-msg").innerHTML = `Your email app should open with your results. Press Send to finish. If nothing opened, your results have been copied where your browser allows: paste them into an email to <b style="font-weight:600">${TRAINER}</b>.`; });
+$("btn-copyres").onclick = async () => { try { await navigator.clipboard.writeText(resultsText()); $("send-msg").innerHTML = `Copied. Paste into an email to <b style="font-weight:600">${TRAINER}</b>.`; } catch { $("send-msg").textContent = "Copy was blocked by your browser. Take a screenshot of your results instead and email it to " + TRAINER + "."; } };
+$("btn-check").onclick = check;
+$("btn-next").onclick = next;
+$("btn-retry").onclick = () => { start(); window.scrollTo({top:0}); };
+start();
+</script>
+</body>
+</html>

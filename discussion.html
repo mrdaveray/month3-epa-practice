@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Month 3 EPA-Style Professional Discussion Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#152a37; --teal:#074a5d; --mid:#1f8a9e; --lime:#e1fb5d; --off:#efeeea; --white:#fff;
+    --line:#d3d9d6; --muted:#5d6b72; --good:#2f8a4e; --goodbg:#e6f4ea; --bad:#b9342d; --badbg:#fbeaea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Poppins,Arial,sans-serif;font-weight:300;color:var(--navy);background:var(--off);line-height:1.5}
+  header{background:linear-gradient(180deg,var(--teal),var(--navy));color:var(--off);padding:28px 20px 0}
+  .wrap{max-width:880px;margin:0 auto}
+  .brand{font-weight:400;font-size:15px;letter-spacing:.5px;opacity:.9}
+  .brand b{color:var(--lime);font-weight:600}
+  h1{font-weight:400;font-size:clamp(24px,4vw,34px);margin:10px 0 6px;line-height:1.2}
+  .lead{margin:0 0 18px;max-width:700px;font-size:15px}
+  .ksbs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 11px;font-size:12px;font-weight:500}
+  header .chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25)}
+  header .chip b{color:var(--lime)}
+  nav{display:flex;gap:4px}
+  nav button{font:inherit;font-weight:500;font-size:14px;border:0;background:transparent;color:var(--off);padding:12px 18px;border-radius:10px 10px 0 0;cursor:pointer;opacity:.8}
+  nav button[aria-selected="true"]{background:var(--off);color:var(--navy);opacity:1}
+  main{padding:24px 20px 60px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:18px}
+  .muted{color:var(--muted)}
+  .small{font-size:13px}
+  .progress{height:8px;background:#dfe4e2;border-radius:99px;overflow:hidden;margin:6px 0 18px}
+  .progress span{display:block;height:100%;background:var(--mid);width:0;transition:width .3s}
+  .qmeta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px}
+  .tag{background:var(--navy);color:var(--lime);border-radius:999px;padding:2px 10px;font-weight:600;font-size:12px}
+  .scenario{background:var(--off);border-radius:10px;padding:14px 16px;margin:14px 0 10px;font-size:15px}
+  .scenario b{font-weight:600;color:var(--teal)}
+  .question{font-weight:500;font-size:17px;margin:12px 0 14px}
+  .opts{display:grid;gap:10px}
+  .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;font:inherit;font-size:15px;font-weight:300;color:var(--navy);background:var(--white);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s}
+  .opt:hover:not(:disabled){border-color:var(--mid)}
+  .opt .k{flex:0 0 26px;height:26px;border-radius:50%;background:var(--off);display:grid;place-items:center;font-weight:600;font-size:13px}
+  .opt.sel{border-color:var(--teal);background:#eef6f7}
+  .opt.sel .k{background:var(--teal);color:var(--lime)}
+  .opt.right{border-color:var(--good);background:var(--goodbg)}
+  .opt.right .k{background:var(--good);color:#fff}
+  .opt.wrong{border-color:var(--bad);background:var(--badbg)}
+  .opt.wrong .k{background:var(--bad);color:#fff}
+  .opt:disabled{cursor:default}
+  .feedback{margin-top:16px;border-radius:10px;padding:14px 16px;font-size:14.5px;display:none}
+  .feedback.show{display:block}
+  .feedback.ok{background:var(--goodbg);border:1px solid #b9dcc4}
+  .feedback.no{background:var(--badbg);border:1px solid #efc3c0}
+  .feedback strong{font-weight:600}
+  .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+  .btn{font:inherit;font-weight:500;font-size:14px;border-radius:999px;padding:10px 20px;cursor:pointer;border:1.5px solid var(--navy);background:var(--navy);color:var(--off)}
+  .btn:disabled{opacity:.4;cursor:default}
+  .btn.ghost{background:transparent;color:var(--navy)}
+  .btn.lime{background:var(--lime);border-color:var(--lime);color:var(--navy)}
+  .score{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .big{font-size:52px;font-weight:500;line-height:1}
+  .bars{display:grid;gap:12px;margin:18px 0}
+  .bar{display:grid;grid-template-columns:60px 1fr 64px;gap:12px;align-items:center;font-size:14px}
+  .bar .t{height:12px;background:#dfe4e2;border-radius:99px;overflow:hidden}
+  .bar .t span{display:block;height:100%;background:var(--teal)}
+  .bar b{font-weight:600}
+  .review{margin-top:10px}
+  .review details{border-top:1px solid var(--line);padding:10px 0}
+  .review summary{cursor:pointer;font-size:14px}
+  .review summary .x{font-weight:600}
+  .pd-intro{display:grid;gap:6px}
+  .pd{position:relative}
+  .pd h3{font-size:17px;font-weight:500;margin:10px 0 12px}
+  textarea{width:100%;min-height:120px;font:inherit;font-size:14.5px;border:1.5px dashed var(--line);border-radius:10px;padding:12px;resize:vertical;color:var(--navy)}
+  textarea:focus{outline:none;border-color:var(--mid);border-style:solid}
+  .timer{font-variant-numeric:tabular-nums;font-weight:500;font-size:13px;color:var(--muted)}
+  .reveal{display:none;margin-top:14px;background:var(--off);border-radius:10px;padding:14px 16px}
+  .reveal.show{display:block}
+  .reveal h4{margin:0 0 8px;font-size:14px;font-weight:600;color:var(--teal)}
+  .reveal label{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;padding:4px 0;cursor:pointer}
+  .reveal input{margin-top:5px;accent-color:var(--teal)}
+  .tip{font-size:13.5px;margin-top:8px;border-top:1px solid var(--line);padding-top:8px}
+  .selfscore{font-size:13px;font-weight:500;margin-left:auto}
+  .note{font-size:12.5px;color:var(--muted);margin-top:24px}
+  .hidden{display:none}
+  @media (max-width:560px){.card{padding:18px}.bar{grid-template-columns:44px 1fr 52px}}
+</style>
+<style>
+  .probe{margin-top:10px;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14.5px}
+  .probe b{font-weight:600;color:var(--teal)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .filters button{font:inherit;font-size:13px;font-weight:500;border:1.5px solid var(--line);background:var(--white);color:var(--navy);border-radius:999px;padding:6px 14px;cursor:pointer}
+  .send input{font:inherit;font-size:15px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;max-width:420px;color:var(--navy)}
+  .send input:focus{outline:none;border-color:var(--mid)}
+  a.btn{text-decoration:none;display:inline-block}
+  a.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+  .filters button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--lime)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand"><a href="index.html" style="color:inherit;text-decoration:none">&larr; All Month 3 practice</a> · we are <b>zenith*</b> · Level 4 AI and Automation Practitioner (ST1512)</div>
+    <h1>Month 3 EPA-style professional discussion practice</h1>
+    <p class="lead">12 open questions of the kind an assessor may ask about your own process mapping work. Answer about your real process, then check your answer against what a strong answer covers.</p>
+    <div class="ksbs" style="padding-bottom:22px;margin-bottom:0">
+      <span class="chip"><b>K5</b> Methods to identify improvement opportunities</span>
+      <span class="chip"><b>S6</b> Workflow and process mapping</span>
+      <span class="chip"><b>S21</b> Analysing information to support recommendations</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="card pd-intro">
+      <strong style="font-weight:600">How to use this practice</strong>
+      <span><b style="font-weight:600">1:1 with your trainer:</b> your trainer asks the question, you answer out loud, then they ask the follow-up probe. Tick what you covered together.</span>
+      <span><b style="font-weight:600">On your own:</b> type your answer first, then reveal the checklist and follow-up, and mark yourself honestly.</span>
+      <span class="small muted">Aim for about 2 minutes per answer. Have your process map and evidence in front of you, as you would in the real discussion.</span>
+      <div class="filters" role="group" aria-label="Show questions for">
+        <button data-f="all" aria-pressed="true">All 12</button>
+        <button data-f="K5" aria-pressed="false">K5</button>
+        <button data-f="S6" aria-pressed="false">S6</button>
+        <button data-f="S21" aria-pressed="false">S21</button>
+        <button id="btn-shuffle">Shuffle order</button>
+      </div>
+    </div>
+    <div id="pd-list"></div>
+    <div class="card">
+      <strong style="font-weight:600">Your self-assessment</strong>
+      <div class="bars" id="pd-bars"></div>
+      <div id="pd-summary" class="small"></div>
+      <div class="send" style="margin-top:18px;border-top:1px solid var(--line);padding-top:16px;display:grid;gap:10px">
+        <strong style="font-weight:600">Send your answers to your trainer</strong>
+        <label for="lname" style="font-size:14px;font-weight:500">Your name</label>
+        <input id="lname" autocomplete="name" placeholder="First and last name">
+        <div class="actions" style="justify-content:flex-start;margin-top:4px">
+          <a id="btn-email" class="btn lime" href="#" aria-disabled="true">Email my answers to Dave</a>
+          <button id="btn-copy" class="btn ghost">Copy my answers</button>
+        </div>
+        <div id="copy-msg" class="small muted" aria-live="polite">Enter your name first. The button opens your email app with your answers filled in; press Send to finish. Long answers are copied for you to paste in. If nothing opens, copy your answers and email them to <b style="font-weight:600">dave@we-are-zenith.com</b>.</div>
+      </div>
+    </div>
+    <p class="note">This is a practice resource, not an official end-point assessment. The "strong answer" checklists are guidance written to the Month 3 KSBs, not official grading criteria; always check your EPA organisation's guidance for the real format.</p>
+  </div>
+</main>
+
+<script>
+const PD = [
+  {ksb:["S6"], q:"Talk me through your as-is process map. Where does it start and end, and why did you set the boundary there?",
+   covers:["Names the process clearly, from X to Y","States the trigger, input, start point, end point and output","Explains why the boundary was set there and what was left outside it","Walks through the main steps, people and systems in order","Points out decisions, handoffs and waits on the map"],
+   probe:"What would have happened if you had made the boundary wider?",
+   tip:"Have your map in front of you and point to it. Use real role and system names (anonymised)."},
+  {ksb:["K5"], q:"What method did you use to identify inefficiencies, and how did it help you find the main problem?",
+   covers:["Names the method used (process mapping, observation, looking for types of waste)","Gives specific problems: delays, duplication, chasing, rework or unclear ownership","Says where each problem appears in the process","Explains the impact on productivity, quality or user experience","Explains why one problem was prioritised over others"],
+   probe:"Is there another method you could have used, and what might it have shown you?",
+   tip:"Avoid listing every problem. Pick two and explain where, why and what impact."},
+  {ksb:["S21"], q:"What evidence supports the problem you identified, and how reliable is it?",
+   covers:["Gives specific evidence: timings, volumes, examples or feedback","Explains how and when the evidence was collected","Comments on reliability: sample size, observed or opinion, typical or one-off","States what could not be accessed and why","Says how the evidence could be strengthened"],
+   probe:"If your manager challenged those figures, how would you defend them?",
+   tip:"Numbers help, but honesty about limitations is just as important."},
+  {ksb:["K5","S6","S21"], q:"How did you decide whether the opportunity needed AI, automation, both, neither or redesign?",
+   covers:["Links the judgement to a specific problem on the map","Shows understanding of what AI suits and what automation suits","Considers where technology would not help or where redesign is needed first","Backs the decision with evidence","Names benefits and at least one risk or thing to check next"],
+   probe:"What would make you change your mind about that judgement?",
+   tip:"If you were tempted by AI but chose something else, say so and explain why. That shows judgement."},
+  {ksb:["S6"], q:"Was the real process different from how people assumed it worked? What did mapping teach you?",
+   covers:["Gives a concrete example of a difference between the assumed and real process","Explains how the difference was discovered (observation, checking with colleagues)","Explains what the difference means for the improvement idea","Reflects on own learning, not just the process"],
+   probe:"How did the people involved react when you showed them the map?",
+   tip:"A short story works well: \"I assumed X, but when I watched it happen, Y.\""},
+  {ksb:["S21"], q:"If you had more time or access, what further information would you collect, and why?",
+   covers:["Names specific information or data that is missing","Explains why it matters to the recommendation","Says how it would be collected and from whom","Considers confidentiality or data protection when collecting it"],
+   probe:"Who would you need permission from to collect it?",
+   tip:"This links to what happens next in the programme: feasibility and viability."},
+  {ksb:["S6"], q:"Which handoff or decision point in your process causes the most difficulty, and why?",
+   covers:["Identifies a specific handoff or decision on the map","Explains what goes wrong there (waiting, lost information, unclear criteria)","Explains who is affected and how","Links the issue to a possible improvement"],
+   probe:"Who owns that handoff at the moment, and does everyone agree on that?",
+   tip:"Handoffs between people, teams or systems are where work most often waits or gets lost."},
+  {ksb:["K5"], q:"Apart from saving time, how would your improvement increase satisfaction for users, customers, candidates or learners?",
+   covers:["Names who would benefit beyond the team doing the work","Describes a specific improvement to their experience (speed, clarity, consistency)","Links it to evidence such as feedback or complaints","Considers any group that could be negatively affected"],
+   probe:"How would you know whether satisfaction had actually improved?",
+   tip:"K5 includes increasing user or customer satisfaction, not just productivity. Show both."},
+  {ksb:["S21"], q:"How did you gather information from the people who use the process, and how did you avoid bias?",
+   covers:["Describes the methods used: observation, conversations, surveys, data","Explains who was asked and why","Recognises possible bias (only asking people who complain, leading questions)","Explains how views were balanced with data or other perspectives"],
+   probe:"Whose voice is missing from your evidence?",
+   tip:"Admitting a limitation and saying how you would fix it is stronger than claiming perfect evidence."},
+  {ksb:["K5"], q:"Which problem did you decide not to tackle first, and why?",
+   covers:["Names a real problem that was set aside","Explains the reasoning: impact, effort, evidence, ownership or risk","Shows a clear way of prioritising","Says when or how it might be revisited"],
+   probe:"What would need to change for that problem to become the priority?",
+   tip:"Prioritising shows judgement. Use a simple idea such as high impact and achievable first."},
+  {ksb:["S6"], q:"If you mapped this process again, what would you do differently?",
+   covers:["Gives a specific change to approach, scope or format","Explains why the change would improve the map or the analysis","Reflects on what was hard (access, time, agreeing the steps)","Shows learning that can be used on future processes"],
+   probe:"What advice would you give a colleague mapping a process for the first time?",
+   tip:"Reflection that leads to a different action next time is stronger than \"it went well\"."},
+  {ksb:["K5","S21"], q:"What risks or practical issues need checking before any solution is chosen?",
+   covers:["Names practical issues: systems access, cost, skills, time to implement","Names responsible AI or data risks where relevant (accuracy, bias, data protection)","Considers the impact on staff and how the change would be accepted","Explains what should happen next before a solution is selected"],
+   probe:"Which of those risks worries you most, and why?",
+   tip:"Link back to Month 2: ethics, legal requirements and workforce impact still apply."}
+];
+
+const $ = id => document.getElementById(id);
+const timers = {};
+let filter = "all";
+
+function build(){
+  const list = $("pd-list");
+  PD.forEach((p,i)=>{
+    const c = document.createElement("div"); c.className = "card pd"; c.dataset.i = i;
+    c.innerHTML = `
+      <div class="qmeta"><span class="muted qn">Question ${i+1}</span><span class="tag"></span></div>
+      <h3></h3>
+      <textarea aria-label="Your answer" placeholder="Type or note your answer here, or answer out loud with your trainer"></textarea>
+      <div class="actions" style="justify-content:space-between;align-items:center">
+        <span class="timer" id="t${i}">2:00</span>
+        <span style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn ghost" data-act="timer">Start 2-minute timer</button>
+          <button class="btn" data-act="reveal">Reveal what a strong answer covers</button>
+        </span>
+      </div>
+      <div class="reveal">
+        <h4 style="display:flex;align-items:center">Tick what your answer covered <span class="selfscore" id="s${i}">0 of ${p.covers.length}</span></h4>
+        <div class="checks"></div>
+        <div class="probe"><b>Assessor follow-up:</b> <span class="pq"></span></div>
+        <div class="tip"><strong style="font-weight:600">Tip:</strong> <span class="tp"></span></div>
+      </div>`;
+    c.querySelector(".tag").textContent = p.ksb.join(" · ");
+    c.querySelector("h3").textContent = p.q;
+    c.querySelector(".pq").textContent = p.probe;
+    c.querySelector(".tp").textContent = p.tip;
+    const checks = c.querySelector(".checks");
+    p.covers.forEach(t=>{ const l = document.createElement("label"); l.innerHTML = `<input type="checkbox"><span></span>`; l.lastChild.textContent = t; checks.appendChild(l); });
+    checks.addEventListener("change", ()=>{ $("s"+i).textContent = `${checks.querySelectorAll("input:checked").length} of ${p.covers.length}`; summary(); });
+    c.querySelector('[data-act="reveal"]').onclick = e => { c.querySelector(".reveal").classList.add("show"); e.target.disabled = true; summary(); };
+    c.querySelector('[data-act="timer"]').onclick = e => toggleTimer(i, e.target);
+    list.appendChild(c);
+  });
+  number(); summary();
+}
+function cards(){ return [...document.querySelectorAll("#pd-list .pd")]; }
+function number(){
+  const vis = cards().filter(c=>!c.classList.contains("hidden"));
+  vis.forEach((c,n)=> c.querySelector(".qn").textContent = `Question ${n+1} of ${vis.length}`);
+}
+function toggleTimer(i, btn){
+  if (timers[i]){ clearInterval(timers[i]); timers[i] = null; btn.textContent = "Start 2-minute timer"; $("t"+i).textContent = "2:00"; return; }
+  let left = 120; btn.textContent = "Reset timer";
+  timers[i] = setInterval(()=>{ left--; $("t"+i).textContent = left > 0 ? `${Math.floor(left/60)}:${String(left%60).padStart(2,"0")}` : "Time's up: finish your point"; if (left <= 0){ clearInterval(timers[i]); } },1000);
+}
+function summary(){
+  if (typeof updateEmail === "function") updateEmail();
+  const k = {K5:[0,0],S6:[0,0],S21:[0,0]};
+  const rows = PD.map((p,i)=>{
+    const c = cards().find(x=>+x.dataset.i===i);
+    const shown = c.querySelector(".reveal").classList.contains("show");
+    const v = c.querySelectorAll(".checks input:checked").length;
+    if (shown) p.ksb.forEach(s=>{ k[s][0]+=v; k[s][1]+=p.covers.length; });
+    return shown ? `<div>${p.ksb.join(" · ")}: <b style="font-weight:600">${v} of ${p.covers.length}</b> · ${escapeHtml(p.q.slice(0,70))}${p.q.length>70?"…":""}${v < p.covers.length/2 ? " · <em>practise again</em>" : ""}</div>` : "";
+  }).filter(Boolean);
+  $("pd-bars").innerHTML = Object.entries(k).map(([s,[c,t]])=>`<div class="bar"><b>${s}</b><div class="t"><span style="width:${t?c/t*100:0}%"></span></div><span>${t?Math.round(c/t*100)+"%":"–"}</span></div>`).join("");
+  $("pd-summary").innerHTML = rows.length ? rows.join("") : `<span class="muted">Reveal and tick a checklist to see your coverage by KSB.</span>`;
+}
+function escapeHtml(s){ return s.replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[ch])); }
+
+document.querySelectorAll(".filters [data-f]").forEach(b=>{
+  b.onclick = () => {
+    filter = b.dataset.f;
+    document.querySelectorAll(".filters [data-f]").forEach(x=>x.setAttribute("aria-pressed", x===b));
+    cards().forEach(c=>{ const p = PD[+c.dataset.i]; c.classList.toggle("hidden", filter!=="all" && !p.ksb.includes(filter)); });
+    number();
+  };
+});
+$("btn-shuffle").onclick = () => {
+  const list = $("pd-list"), cs = cards();
+  for (let i = cs.length - 1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [cs[i], cs[j]] = [cs[j], cs[i]]; }
+  cs.forEach(c=>list.appendChild(c)); number();
+};
+const TRAINER = "dave@we-are-zenith.com";
+function answersText(){
+  const name = $("lname").value.trim() || "(name not given)";
+  const k = {K5:[0,0],S6:[0,0],S21:[0,0]};
+  const body = cards().filter(c=> c.querySelector("textarea").value.trim() || c.querySelector(".reveal").classList.contains("show")).map(c=>{ const p = PD[+c.dataset.i]; const shown = c.querySelector(".reveal").classList.contains("show"); const a = c.querySelector("textarea").value.trim() || "(no written answer)"; const v = c.querySelectorAll(".checks input:checked").length; if (shown) p.ksb.forEach(s=>{k[s][0]+=v;k[s][1]+=p.covers.length;}); return `[${p.ksb.join(", ")}] ${p.q}\n${a}\nSelf-assessment: ${shown ? v + " of " + p.covers.length + " points covered" : "not self-assessed"}\n`; }).join("\n");
+  const head = [`Learner: ${name}`, `Date: ${new Date().toLocaleDateString("en-GB")}`, `Activity: Month 3 professional discussion practice`, `Coverage by KSB: ${Object.entries(k).map(([s,[c,t]])=>`${s} ${t?Math.round(c/t*100)+"%":"not assessed"}`).join(", ")}`, ""].join("\n");
+  return {head, full: head + body};
+}
+function updateEmail(){
+  const has = $("lname").value.trim().length > 0, a = $("btn-email");
+  a.setAttribute("aria-disabled", has ? "false" : "true");
+  if (!has){ a.href = "#"; return; }
+  const {head, full} = answersText();
+  const body = full.length > 1800 ? head + "\nMy full answers are pasted below:\n\n" : full;
+  a.href = `mailto:${TRAINER}?subject=${encodeURIComponent("Month 3 professional discussion practice: " + $("lname").value.trim())}&body=${encodeURIComponent(body)}`;
+}
+$("lname").addEventListener("input", updateEmail);
+document.addEventListener("input", e => { if (e.target.tagName === "TEXTAREA") updateEmail(); });
+document.addEventListener("change", e => { if (e.target.type === "checkbox") updateEmail(); });
+$("btn-email").addEventListener("click", async () => {
+  const {full} = answersText(); let copied = false;
+  try { await navigator.clipboard.writeText(full); copied = true; } catch {}
+  $("copy-msg").innerHTML = (full.length > 1800 && copied ? "Your answers are long, so they have been copied: paste them into the email before you send it. " : "Your email app should open with your answers. Press Send to finish. ") + `If nothing opened, paste your answers into an email to <b style="font-weight:600">${TRAINER}</b>.`;
+});
+$("btn-copy").onclick = async () => {
+  try { await navigator.clipboard.writeText(answersText().full); $("copy-msg").innerHTML = `Copied. Paste into an email to <b style="font-weight:600">${TRAINER}</b>.`; }
+  catch { $("copy-msg").textContent = "Copy was blocked by your browser. Select your answers in the boxes and copy them manually."; }
+};
+build();
+</script>
+</body>
+</html>
